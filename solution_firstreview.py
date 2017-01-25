@@ -13,17 +13,25 @@ def naked_twins(values):
                     naked_twins.append([box, peer])
     for nt in naked_twins:
         # Find the units that contains these two naked twins
-#        units = [u for u in unitlist if nt[0] in u or nt[1] in u]   #error
         units = [u for u in unitlist if nt[0] in u and nt[1] in u]
+        print (units)
         for unit in units:
+            print("*unit",unit)
             for box in unit:
+                print("**box",box)
                 if box != nt[0] and box != nt[1]:
+				    
+#new_values is {...'A7':'27'...} nt[0],A7 and new_values[nt[0]][0] is 2
+#new_values[nt[0]][1] is 7
+                    print("succes_box:",box,"nt0:",nt[0],"nt1:",nt[1],"00:",new_values[nt[0]][0])
                     new_values[box] = new_values[box].replace(new_values[nt[0]][0], '')
+                    print("n:",new_values[box])  #ex) 7
                     new_values[box] = new_values[box].replace(new_values[nt[0]][1], '')
+                    print("nn:",new_values[box],"01:",new_values[nt[0]][1])
     if len([box for box in new_values.keys() if len(new_values[box]) == 0]):
         return False
-#    return values    #error !!
     return new_values
+
 
 #PROBLEM 2: DIAGONAL SUDOKU
 
@@ -41,17 +49,35 @@ unitlist = ([cross(rows, c) for c in cols] +
             [cross(rs, cs) for rs in ('ABC','DEF','GHI') for cs in ('123','456','789')])
 units = dict((s, [u for u in unitlist if s in u])
              for s in squares)
+#my	
+'''	
+print(units['A2'])  #3 dictionary values which ars  lists[ with 9 elements ]
+print("units:\n",units, len(units))
+print("* squares:cross(rosw, cols):\n",squares, len(squares))
+print("*"*55) 
+print(unitlist)  #27: row, colum, 3*3
+print(len(unitlist))
+#print (type(units))
+#print (len(units)) '''
+
+#dictionary 'C2': {'A2', 'C8', 'F2...},..
 peers = dict((s, set(sum(units[s],[]))-set([s]))
              for s in squares)
-## From  this part error happened !!
-diagonals = [r+c for r in rows for c in cols]
-print ("*diagonals: \n",diagonals)
-diag_unitlist = unitlist + [diagonals]
+'''	 
+print ("-"*55)
+print ("peers:\n",peers,len(peers))
+'''
+
+diagonal1 = [a[0]+a[1] for a in zip(rows, cols)]
+#print("*diagonal1:\n",diagonal1)
+diagonal2 = [a[0]+a[1] for a in zip(rows, cols[::-1])]
+#print("*diagonal2:\n",diagonal2)
+diag_unitlist = unitlist + [diagonal1, diagonal2]
 diag_units = dict((s, [u for u in diag_unitlist if s in u])
              for s in squares)
 diag_peers = dict((s, set(sum(diag_units[s],[]))-set([s]))
              for s in squares)
-
+#print("diag_units:\n",diag_units)
 def grid_values(grid):
     "Convert grid into a dict of {square: char} with '.' for empties."
     chars = []

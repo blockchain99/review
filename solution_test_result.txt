@@ -1,0 +1,75 @@
+C:\sudoku\sudoku2>python solution_test.py
+FE
+======================================================================
+ERROR: test_naked_twins (__main__.TestNakedTwins)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "solution_test.py", line 10, in test_naked_twins
+    self.assertEqual(solution.naked_twins(before_naked_twins), after_naked_twins)
+  File "C:\sudoku\sudoku2\solution.py", line 20, in naked_twins
+    new_values[box] = new_values[box].replace(new_values[nt[0]][0], '')
+IndexError: string index out of range
+
+======================================================================
+FAIL: test_solve (__main__.TestDiagonalSudoku)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "solution_test.py", line 19, in test_solve
+    self.assertEqual(solution.solve(diag_sudoku), solved_diag_sudoku)
+AssertionError: False != {'D9': '2', 'B9': '9', 'B7': '2', 'C2': '[845 chars] '5'}
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.000s
+
+############################## after corect #########
+
+#        units = [u for u in unitlist if nt[0] in u or nt[1] in u]
+	
+     ->  units = [u for u in unitlist if nt[0] in u and nt[1] in u]
+-------------- excute result ----------
+same error as above
+
+####################### after correct return new_values ##########
+def naked_twins(values)
+...
+   #return values  # -> changed  
+    return  new_values
+#--------- result --------
+======================================================================
+FAIL: test_solve (__main__.TestDiagonalSudoku)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "solution_test.py", line 19, in test_solve
+    self.assertEqual(solution.solve(diag_sudoku), solved_diag_sudoku)
+AssertionError: False != {'C6': '3', 'G8': '1', 'I9': '3', 'D7': '[845 chars] '9'}
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.000s
+
+FAILED (failures=1)
+#### it's not correct  for sudoku2 soulution.py
+diagonals = [r+c for r in rows for c in cols]
+diag_unitlist = unitlist + [diagonals]
+*diagonals: 
+ ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'A9', 
+'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8', 'B9',
+ 'C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8', 'C9', 
+'D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7', 'D8', 'D9',
+ 'E1', 'E2', 'E3', 'E4', 'E5', 'E6', 'E7', 'E8', 'E9',
+ 'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'F9', 
+'G1', 'G2', 'G3', 'G4', 'G5', 'G6', 'G7', 'G8', 'G9', 
+'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'H7', 'H8', 'H9',
+ 'I1', 'I2', 'I3', 'I4', 'I5', 'I6', 'I7', 'I8', 'I9']
+-> it  should  be in  sudoku1
+diagonal1 = [a[0]+a[1] for a in zip(rows, cols)]
+diagonal2 = [a[0]+a[1] for a in zip(rows, cols[::-1])]
+
+
+diag_unitlist = unitlist + [diagonal1, diagonal2]
+[diagonal1, diagonal2]
+*diagonal1:
+ ['A1', 'B2', 'C3', 'D4', 'E5', 'F6', 'G7', 'H8', 'I9']
+*diagonal2:
+ ['A9', 'B8', 'C7', 'D6', 'E5', 'F4', 'G3', 'H2', 'I1']
+
+

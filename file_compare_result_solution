@@ -1,0 +1,37 @@
+C:\sudoku\soduku2>fc solution.py C:\sudoku\udacitystudentreview\solution.py
+Comparing files solution.py and C:\SUDOKU\UDACITYSTUDENTREVIEW\SOLUTION.PY
+***** solution.py
+        # Find the units that contains these two naked twins
+        units = [u for u in unitlist if nt[0] in u or nt[1] in u]
+        for unit in units:
+***** C:\SUDOKU\UDACITYSTUDENTREVIEW\SOLUTION.PY
+        # Find the units that contains these two naked twins
+        units = [u for u in unitlist if nt[0] in u and nt[1] in u]
+        for unit in units:
+*****
+
+***** solution.py
+        return False
+    return values
+
+***** C:\SUDOKU\UDACITYSTUDENTREVIEW\SOLUTION.PY
+        return False
+    return new_values
+
+*****
+
+***** solution.py
+
+diagonals = [r+c for r in rows for c in cols]
+diag_unitlist = unitlist + [diagonals]
+diag_units = dict((s, [u for u in diag_unitlist if s in u])
+***** C:\SUDOKU\UDACITYSTUDENTREVIEW\SOLUTION.PY
+
+diagonal1 = [a[0]+a[1] for a in zip(rows, cols)]
+diagonal2 = [a[0]+a[1] for a in zip(rows, cols[::-1])]
+diag_unitlist = unitlist + [diagonal1, diagonal2]
+diag_units = dict((s, [u for u in diag_unitlist if s in u])
+*****
+
+
+C:\sudoku\soduku2>
